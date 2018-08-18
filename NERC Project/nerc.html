@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+        img {
+            max-width: 100%;
+        }
+
+        input.MyButton {
+            width: 300px;
+            padding: 20px;
+            cursor: pointer;
+            font-weight: bolder;
+            font-size: 200%;
+            background: #0cb83f;
+            color: #ffffff;
+            border-radius: 20px
+        }
+
+        table.MyTable {
+            width: 1000px;
+            padding: 0.2px;
+            border-radius: 20px
+        }
+
+
+        .button {
+            background-color: rgb(23, 160, 194);
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 4px 2px;
+        }
+
+        .button:hover {
+            background: rgb(0, 100, 50);
+        }
+
+        .button1 {
+            border-radius: 2px;
+        }
+
+        .button2 {
+            border-radius: 4px;
+        }
+
+        .button3 {
+            border-radius: 6px;
+        }
+
+        .button4 {
+            border-radius: 12px;
+        }
+
+        .button5 {
+            border-radius: 50%;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Float four columns side by side */
+        .column {
+            width: 100%;
+            padding: 0.5%
+        }
+
+        /* Remove extra left and right margins, due to padding */
+        .row {
+            /* margin: 0 -5px; */
+
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-column-gap: 15px;
+            grid-row-gap: 15px;
+            padding: 15px;
+        }
+
+        @media(max-width:768px) {
+            .card-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width:500px) {
+            .card-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Style the counter cards */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            border-block-end-style: dotted;
+            background-color: #b1afaf;
+            height: 100%;
+        }
+
+        .card:hover {
+
+            background: rgba(37, 182, 240, 0.801);
+            color: white !important;
+            text-align: center;
+        }
+
+        html,
+        body,
+        h1,
+        h2,
+        h3,
+        h5,
+        h6 {
+            font-family: "Calibri Light", Roboto;
+        }
+
+        body {
+            margin: 0;
+        }
+    </style>
+    <title>REQUIREMENTS</title>
+</head>
+
+<body id="body">
+
+    <div class="row" style="background-color: rgba(37, 182, 240, 0.801); max-width: 100%;
+height: auto">
+        <a href="nerc.html" style="cursor: pointer">
+            <img src="data/src/logo.png" alt="NERC LOGO" style="display: block;
+    margin-left: auto;
+    margin-right: auto ">
+        </a>
+    </div>
+
+
+    <div class="row card-row">
+        <div class="column">
+            <div class="card" onclick="eko()">
+                <h3>EKO
+                    </h4>
+                    <h4 id="feederNum">96 FEEDERS</h4>
+                    <h4 id='monthlyCompliance'>CURRENT MONTHLY COMPLIANCE 94% </h4>
+                    <script>
+                        (function () {
+                            function start() {
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var obj = JSON.parse(this.responseText);
+                                        console.log(obj)
+                                        document.getElementById('monthlyCompliance').innerHTML = 'CURRENT MONTHLY COMPLIANCE ' + String(obj)
+                                    }
+                                };
+
+                                var fileName = '/data/disco/eko-data/otherData.json';
+                                xhttp.open('GET', fileName, true);
+                                xhttp.send();
+                            }
+                            function now() {
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var obj = JSON.parse(this.responseText);
+                                        var result = Object.keys(obj).map(function (key) {
+                                            return [(key), obj[key]];
+                                        });
+                                        iter = result.length;
+                                        document.getElementById('feederNum').innerHTML = String(iter) + ' FEEDERS'
+                                    }
+                                }
+
+                                var fileName = '/data/disco/eko-data/1' + '.json';
+                                xhttp.open('GET', fileName, true);
+                                xhttp.send();
+                            };
+
+                            start();
+                            now();
+                        }
+                        )()
+                    </script>
+
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <h3>IKEJA
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <h3>ENUGU
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <h3>ABUJA
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>BENIN
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>JOS
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>PORT HARCOURT
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>YOLA
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>IBADAN
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>KANO
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>KADUNA
+                    </h4>
+                    <h4>22 FEEDERS</h4>
+                    <h4>CURRENT MONTHLY COMPLIANCE 80%</h4>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <h3>TOTAL NUMBER OF DISCOS: 11
+                    </h4>
+                    <h4>PERIOD: MONTHLY</h4>
+                    <h4>MONTHLY COMPLIANCE OF DISCOS 85%</h4>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function eko() {
+            window.location.href = 'data/disco/eko.html'
+        }
+
+    </script>
+
+</body>
+
+</html>
